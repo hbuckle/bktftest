@@ -5,6 +5,8 @@ steps:
   - wait
 
   - command: terraform init -input=false
-  - comannd: terraform plan -input=false
+  - command: terraform plan -input=false
 
   - wait
+
+  - command: echo finished
