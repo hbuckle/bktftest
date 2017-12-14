@@ -8,10 +8,10 @@ steps:
 
   - wait
 
-  - command: terraform plan -input=false
+  - command: get-tf-input.sh | buildkite-agent pipeline upload
 
   - wait
 
-  - command: get-tf-input.sh | buildkite-agent pipeline upload 
+  - command: terraform plan -input=false
 
   - command: echo finished
