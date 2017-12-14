@@ -8,7 +8,7 @@ steps:
 
   - wait
 
-  - command: get-tf-input.sh | buildkite-agent pipeline upload
+  - command: test.sh
 
   - wait
 
