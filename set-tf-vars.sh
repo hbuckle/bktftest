@@ -3,5 +3,7 @@
 set -eu
 
 for i in $(cat ./variables.tf.json | jq '.["variable"] | keys[]'); do
-  export TF_$i=$(buildkite-agent meta-data get $i)
+  temp="${i%\"}"
+  temp="${temp#\"}"
+  export TF_$temp=$(buildkite-agent meta-data get $temp)
 done
