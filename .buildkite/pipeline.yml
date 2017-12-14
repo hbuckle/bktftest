@@ -1,6 +1,7 @@
 steps:
-  - command: apk update
-  - command: apk add terraform
+  - command:
+    - apk update
+    - apk add terraform
 
   - wait
 
@@ -12,6 +13,8 @@ steps:
 
   - wait
 
-  - command: terraform plan -input=false
+  - command:
+    - set-tf-vars.sh
+    - terraform plan -input=false
 
   - command: echo finished
