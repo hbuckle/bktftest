@@ -14,8 +14,6 @@ steps:
   - wait
 
   - command: set-tf-vars.sh
-  - command:
-    - export -p
-    - terraform plan -input=false
+  - command: terraform plan -input=false -var-file=bk.tfvars
 
   - command: echo finished
