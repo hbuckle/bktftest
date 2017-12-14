@@ -14,8 +14,18 @@ steps:
   - wait
 
   - command: set-tf-vars.sh
-  - command:
-    - buildkite-agent artifact download bk.tfvars .
-    - terraform plan -input=false -var-file=bk.tfvars
+  - label: Terraform Plan
+    command:
+      - buildkite-agent artifact download bk.tfvars .
+      - terraform plan -input=false -var-file=bk.tfvars
+
+  - wait
+
+  - block: Deploy?
+
+  - label: Terraform Apply
+    command:
+      - buildkite-agent artifact download bk.tfvars .
+      - terraform apply -input=false -var-file=bk.tfvars
 
   - command: echo finished
