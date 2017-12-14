@@ -14,6 +14,8 @@ steps:
   - wait
 
   - command: set-tf-vars.sh
-  - command: terraform plan -input=false
+  - command:
+    - export -p
+    - terraform plan -input=false
 
   - command: echo finished
