@@ -3,7 +3,7 @@
 set -eu
 
 echo 'steps:'
-echo '  - block: "Notify"'
+echo '  - block: Terraform Variables'
 echo '    fields:'
 
 for i in $(cat ./variables.tf.json | jq '.["variable"] | keys[]'); do
