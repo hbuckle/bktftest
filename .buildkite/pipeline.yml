@@ -1,7 +1,7 @@
 steps:
   - command:
     - apk update
-    - apk add terraform
+    - apk add terraform --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community
 
   - wait
   - command: az login --msi
