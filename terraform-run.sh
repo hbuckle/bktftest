@@ -3,9 +3,8 @@
 set -euo pipefail
 
 COMMAND=$(buildkite-agent meta-data get terraform-command)
-az login --msi
 TOKEN=$(curl http://localhost:50342/oauth2/token --data "resource=https://management.azure.com/" -H Metadata:true -s)
-echo "[$TOKEN]" > $HOME/.azure/accessTokens.json
+echo $TOKEN | jq -c '[. | .["accessToken"] = .access_token | .["expiresOn"] = .expires_on | .["tokenType"] = .token_type | del(.access_token,.expires_on,.token_type) ]' > $HOME/.azure/accessTokens.json
 terraform init -input=false
 case $COMMAND in
   "apply")
