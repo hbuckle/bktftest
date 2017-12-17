@@ -2,7 +2,9 @@ steps:
   - label: Terraform Init
     command:
       - apk add terraform --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community
-      - az login --msi
+      - TOKEN=$(curl http://localhost:50342/oauth2/token --data "resource=https://management.azure.com/" -H Metadata:true -s)
+      - mkdir -p $HOME/.azure
+      - echo "[$TOKEN]" > $HOME/.azure/accessTokens.json
       - terraform init -input=false
 
   - wait
@@ -23,9 +25,6 @@ steps:
 
   - label: Terraform Plan
     command:
-      - az login --msi
-      - ls -a $HOME/.azure
-      - terraform init -input=false
       - terraform plan -input=false -out=bkplan.tfplan
       - buildkite-agent artifact upload bkplan.tfplan
 
