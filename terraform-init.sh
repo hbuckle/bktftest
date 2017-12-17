@@ -3,6 +3,6 @@
 set -euo pipefail
 
 apk add terraform --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community
-ID=$(az login --msi | jq -r '.[].id')
-az account set -s $ID
-az account get-access-token | jq -c '[.]' > $HOME/.azure/accessTokens.json
+az login --msi
+response=$(curl http://localhost:50342/oauth2/token --data "resource=https://management.azure.com/" -H Metadata:true -s)
+echo $response | python access-token.py | jq -c '[.]' > $HOME/.azure/accessTokens.json
