@@ -10,5 +10,5 @@ output["resource"] = "https://management.core.windows.net/"
 output["refreshToken"] = token["refresh_token"]
 output["accessToken"] = token["access_token"]
 output["expiresOn"] = datetime.fromtimestamp(int(token["expires_on"])).isoformat(' ', 'microseconds')
-output["_authority"] = "https://login.microsoftonline.com/" + os.environ['ARM_TENANT_ID']
+output["_authority"] = "https://login.microsoftonline.com/" + os.environ['TENANT_ID']
 print(json.dumps(output))
