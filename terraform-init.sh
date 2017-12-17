@@ -3,5 +3,5 @@
 set -euo pipefail
 
 apk add terraform --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community
-mkdir -p $HOME/.azure
+az login --msi
 terraform init -input=false
