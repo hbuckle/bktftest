@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import sys, json
+import sys, json, os
 from datetime import datetime, date, time
 token = json.load(sys.stdin)
 output = {}
@@ -9,7 +9,6 @@ output["expiresIn"] = token["expires_in"]
 output["resource"] = "https://management.core.windows.net/"
 output["refreshToken"] = token["refresh_token"]
 output["accessToken"] = token["access_token"]
-#output["expiresOn"] = datetime.fromtimestamp(int(token["expires_on"])).isoformat(' ', 'microseconds')
-output["expiresOn"] = "2017-12-18 17:27:38.984891"
-#output["_authority"] = "https://login.microsoftonline.com"
+output["expiresOn"] = datetime.fromtimestamp(int(token["expires_on"])).isoformat(' ', 'microseconds')
+output["_authority"] = "https://login.microsoftonline.com/" + os.environ['ARM_TENANT_ID']
 print(json.dumps(output))
