@@ -23,6 +23,8 @@ steps:
 
   - label: Terraform Plan
     command:
+      - az login --msi
+      - terraform init -input=false
       - terraform plan -input=false -out=bkplan.tfplan
       - buildkite-agent artifact upload bkplan.tfplan
 
@@ -33,5 +35,3 @@ steps:
   - label: Run Terraform
     command:
       - run-terraform.sh
-
-  - command: echo finished
