@@ -1,11 +1,7 @@
 steps:
   - label: Terraform Init
     command:
-      - apk add terraform --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community
-      - TOKEN=$(curl http://localhost:50342/oauth2/token --data "resource=https://management.azure.com/" -H Metadata:true -s)
-      - mkdir -p $HOME/.azure
-      - echo "[$TOKEN]" > $HOME/.azure/accessTokens.json
-      - terraform init -input=false
+      - terraform-init.sh
 
   - wait
 
@@ -34,4 +30,4 @@ steps:
 
   - label: Run Terraform
     command:
-      - run-terraform.sh
+      - terraform-run.sh
