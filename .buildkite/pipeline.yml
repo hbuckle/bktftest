@@ -21,8 +21,7 @@ steps:
 
   - label: Terraform Plan
     command:
-      - terraform plan -input=false -out=bkplan.tfplan
-      - buildkite-agent artifact upload bkplan.tfplan
+      - terraform-plan.sh
 
   - wait
 
