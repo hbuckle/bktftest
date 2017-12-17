@@ -24,6 +24,8 @@ steps:
   - label: Terraform Plan
     command:
       - az login --msi
+      - ls -a $HOME
+      - cat $HOME/.azure/accessTokens.json
       - terraform init -input=false
       - terraform plan -input=false -out=bkplan.tfplan
       - buildkite-agent artifact upload bkplan.tfplan

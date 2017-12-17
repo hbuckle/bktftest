@@ -4,9 +4,6 @@ set -euo pipefail
 
 COMMAND=$(buildkite-agent meta-data get terraform-command)
 az login --msi
-ls -a /root
-ls -a $HOME
-cat $HOME/.azure/accessTokens.json
 terraform init -input=false
 case $COMMAND in
   "apply")
