@@ -1,31 +1,37 @@
 steps:
-  - command:
-    - apk update
-    - apk add terraform --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community
-
-  - wait
-  - command: az login --msi
-  - command: terraform init -input=false
-
-  - wait
-
-  - command: test.sh
+  - label: Terraform Init
+    command:
+      - apk add terraform --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community
+      - az login --msi
+      - terraform init -input=false
 
   - wait
 
-  - command: set-tf-vars.sh
+  - block: Terraform Command
+    fields:
+      - select: "Command"
+        key: "terraform-command"
+        options:
+          - label: "Apply"
+            value: "apply"
+          - label: "Destroy"
+            value: "destroy"
+          - label: "Refresh"
+            value: "refresh"
+
+  - wait
+
   - label: Terraform Plan
     command:
-      - buildkite-agent artifact download bk.tfvars .
-      - terraform plan -input=false -var-file=bk.tfvars
+      - terraform plan -input=false -out=bkplan.tfplan
+      - buildkite-agent artifact upload bkplan.tfplan
 
   - wait
 
-  - block: Deploy?
+  - block: Run Terraform?
 
-  - label: Terraform Apply
+  - label: Run Terraform
     command:
-      - buildkite-agent artifact download bk.tfvars .
-      - terraform apply -input=false -var-file=bk.tfvars
+      - run-terraform.sh
 
   - command: echo finished
