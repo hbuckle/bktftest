@@ -18,6 +18,7 @@ export ARM_SUBSCRIPTION_ID=$(echo $login | jq -r '.[].id')
 
 buildkite-agent artifact download terraform.zip .
 unzip terraform.zip
-cat ./.terraform/terraform.tfstate
+ls -la .terraform/
+# cat ./.terraform/terraform.tfstate
 terraform plan -input=false -out=bkplan.tfplan
 buildkite-agent artifact upload bkplan.tfplan
