@@ -13,7 +13,7 @@ terraform init -input=false
 COMMAND=$(buildkite-agent meta-data get terraform-command)
 case $COMMAND in
   "apply")
-    buildkite-agent artifact download bkplan.tfplan
+    buildkite-agent artifact download bkplan.tfplan .
     terraform apply -input=false bkplan.tfplan
     ;;
   "destroy")
