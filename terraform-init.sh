@@ -20,4 +20,3 @@ state_storage_access_key=$(
 terraform init -input=false -backend-config="access_key=$state_storage_access_key"
 zip -r terraform-init.zip ./.terraform ./terraform.d
 buildkite-agent artifact upload terraform-init.zip
-ls -la ./
