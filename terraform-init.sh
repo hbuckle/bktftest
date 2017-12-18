@@ -18,6 +18,6 @@ state_storage_access_key=$(
     --query '[0].value' -o tsv
 )
 terraform init -input=false -backend-config="access_key=$state_storage_access_key"
-zip -r terraform.zip ./.terraform ./terraform.d
-buildkite-agent artifact upload terraform.zip
+zip -r terraform-init.zip ./.terraform ./terraform.d
+buildkite-agent artifact upload terraform-init.zip
 ls -la ./

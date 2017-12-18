@@ -16,7 +16,8 @@ export ARM_SUBSCRIPTION_ID=$(echo $login | jq -r '.[].id')
 # )
 # terraform init -input=false -backend-config="access_key=$state_storage_access_key"
 
-buildkite-agent artifact download terraform.zip .
-unzip terraform.zip
+buildkite-agent artifact download terraform-init.zip .
+unzip terraform-init.zip
 terraform plan -input=false -out=bkplan.tfplan
-buildkite-agent artifact upload bkplan.tfplan
+zip -r terraform-plan.zip ./.terraform ./terraform.d bkplan.tfplan
+buildkite-agent artifact upload terraform-plan.zip
