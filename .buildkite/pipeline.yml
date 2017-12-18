@@ -1,3 +1,7 @@
+env:
+  ARM_USE_MSI: true
+  TF_PLUGIN_CACHE_DIR: "$HOME/.terraform.d/plugin-cache"
+  ARM_MSI_ENDPOINT: http://localhost:50342/oauth2/token
 steps:
   - label: Terraform Init
     command:
