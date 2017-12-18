@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+apk add zip --no-cache
+apk add unzip --no-cache
 apk add terraform --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community
 login=$(az login --msi)
 export ARM_TENANT_ID=$(echo $login | jq -r '.[].tenantId')
@@ -16,6 +18,6 @@ state_storage_access_key=$(
     --query '[0].value' -o tsv
 )
 terraform init -input=false -backend-config="access_key=$state_storage_access_key"
-buildkite-agent artifact upload .terraform
-buildkite-agent artifact upload .terraform.d
+zip terraform.zip ./.terraform ./terraform.d
+buildkite-agent artifact upload terraform.zip
 ls -la ./
